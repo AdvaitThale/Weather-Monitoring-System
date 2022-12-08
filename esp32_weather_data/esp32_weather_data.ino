@@ -7,8 +7,8 @@
   Air Quality Index (AQI) and dual sensor temperature data. It contains DHT11 
   Humidity & Temprature Sensor, MQ135 Air Quality Index (AQI) Sensor, BMP280 Pressure 
   Sensor and ESP32 as MCU. The data is visualized on web server which is runned by
-  ESP32 itself on browser via WiFi.
-
+  ESP32 itself on browser via WiFi. Type IP Address 192.168.1.1 on browser after 
+  connecting to ESP32. 
   
 */
 #include <WiFi.h>
