@@ -75,7 +75,7 @@ void handle_NotFound() {
 String SendHTML(float Temperaturestat, float Humiditystat) {
   String ptr = "<!DOCTYPE html> <html>\n";
   ptr += "<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
-  ptr += "<meta content="Advait Thale" name="author"><meta content="20" http-equiv="refresh">";
+  ptr += "<meta content=\"Advait Thale\" name=\"author\"><meta content=\"20\" http-equiv=\"refresh\">\n";
   ptr += "<title>Weather Monitor</title>\n";
   ptr += "<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}\n";
   ptr += "body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;}\n";
@@ -85,14 +85,12 @@ String SendHTML(float Temperaturestat, float Humiditystat) {
   ptr += "<body>\n";
   ptr += "<div id=\"webpage\">\n";
   ptr += "<h1>ESP32 Weather Report</h1>\n";
-
   ptr += "<p>Temperature: ";
   ptr += (int)Temperaturestat;
   ptr += "°C</p>";
   ptr += "<p>Humidity: ";
   ptr += (int)Humiditystat;
   ptr += "%</p>";
-
   ptr += "</div>\n";
   ptr += "<footer><p>Author: Advait Thale</P></footer>";
   ptr += "</body>\n";
