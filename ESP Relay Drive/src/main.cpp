@@ -9,7 +9,7 @@
 #define RELAY_B 23
 #define LM_ADC 13
 
-int PLAY = 0, RAW_TEMP;
+int PLAY = 0, $blue_brightness = 0, $fade = 1, _amp, RAW_TEMP;
 float LM;
 void tone(byte PIN, int FREQ);
 void noTone();
@@ -33,7 +33,15 @@ void setup()
 
 void loop()
 {
-  tempAlert();
+  analogWrite(BLUE_LED_BUILTIN, $blue_brightness);
+  $blue_brightness = $blue_brightness + $fade;
+  if ($blue_brightness <= 0 || $blue_brightness >= 255) // reverse the direction of the fading at the ends of the fade
+  {
+    $fade = -$fade;
+  }
+  delay(30); // wait for the dimming effect
+
+  //  tempAlert();
   // digitalWrite(BLUE_LED_BUILTIN, HIGH);
   // digitalWrite(RED_LED_BUILTIN, HIGH);
   // digitalWrite(GREEN_LED_BUILTIN, LOW);
@@ -107,7 +115,7 @@ void init()
   noTone();
   digitalWrite(BUZZ_BUILTIN, !digitalRead(BUZZ_BUILTIN));
   delay(100);
-  Serial.println("Hashing to Defaults..");
+  Serial.println("Hashing to Defaults...");
   digitalWrite(BLUE_LED_BUILTIN, !digitalRead(BLUE_LED_BUILTIN));
   digitalWrite(RED_LED_BUILTIN, LOW);
   digitalWrite(GREEN_LED_BUILTIN, LOW);
