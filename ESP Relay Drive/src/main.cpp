@@ -9,9 +9,9 @@
 #define RELAY_B 23
 #define LM_ADC 13
 
-int PLAY = 0, $blue_brightness = 0, $fade = 1, _amp, RAW_TEMP;
-float LM;
-void tone(byte PIN, int FREQ);
+int _play = 0, $blue_brightness = 0, $fade = 2, _amp, $raw_temp;
+float _lm;
+void tone(byte _pin, int _freq);
 void noTone();
 void init();
 void tempAlert();
@@ -33,13 +33,16 @@ void setup()
 
 void loop()
 {
+  digitalWrite(RED_LED_BUILTIN, LOW);
+  digitalWrite(GREEN_LED_BUILTIN, LOW);
   analogWrite(BLUE_LED_BUILTIN, $blue_brightness);
   $blue_brightness = $blue_brightness + $fade;
   if ($blue_brightness <= 0 || $blue_brightness >= 255) // reverse the direction of the fading at the ends of the fade
   {
     $fade = -$fade;
   }
-  delay(30); // wait for the dimming effect
+  Serial.println($blue_brightness);
+  delay(12); // wait for the dimming effect
 
   //  tempAlert();
   // digitalWrite(BLUE_LED_BUILTIN, HIGH);
@@ -70,15 +73,15 @@ void loop()
 
 void tempAlert()
 {
-  RAW_TEMP = analogRead(LM_ADC); // Read LM ADC
-  LM = ((RAW_TEMP * 1.22) / 10);
-  if (LM < 10)
+  $raw_temp = analogRead(LM_ADC); // Read LM ADC
+  _lm = (($raw_temp * 1.22) / 10);
+  if (_lm < 10)
   {
     digitalWrite(BLUE_LED_BUILTIN, HIGH);
     digitalWrite(GREEN_LED_BUILTIN, LOW);
     digitalWrite(RED_LED_BUILTIN, LOW);
   }
-  else if (LM > 35)
+  else if (_lm > 35)
   {
     digitalWrite(RED_LED_BUILTIN, HIGH);
     digitalWrite(GREEN_LED_BUILTIN, LOW);
@@ -96,7 +99,7 @@ void tempAlert()
   digitalWrite(RED_LED_BUILTIN, LOW);
   digitalWrite(BLUE_LED_BUILTIN, LOW);
   Serial.print("TEMP: ");
-  Serial.println(LM);
+  Serial.println(_lm);
 }
 
 void init()
@@ -130,15 +133,15 @@ void init()
   Serial.println("Dev. Module Configured.");
 }
 
-void tone(byte PIN, int FREQ)
+void tone(byte _pin, int _freq)
 {
   ledcSetup(0, 2000, 8);
-  ledcAttachPin(PIN, 0);
-  ledcWriteTone(0, FREQ);
-  PLAY = PIN;
+  ledcAttachPin(_pin, 0);
+  ledcWriteTone(0, _freq);
+  _play = _pin;
 }
 
 void noTone()
 {
-  tone(PLAY, 0);
+  tone(_play, 0);
 }
