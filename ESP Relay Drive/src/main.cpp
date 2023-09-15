@@ -9,7 +9,7 @@
 #define RELAY_B 23
 #define LM_ADC 13
 
-int _play = 0, $blue_brightness = 0, $fade = 2, _amp, $raw_temp;
+int _play = 0, $blue_brightness, $green_brightness, $red_brightness = 0, $fade = 2, _amp, $raw_temp;
 float _lm;
 void tone(byte _pin, int _freq);
 void noTone();
